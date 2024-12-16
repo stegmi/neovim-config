@@ -16,21 +16,35 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local opts = {}
-local plugins = {{
-    "catppuccin/nvim",
-    name = "catppuccin",
-    priority = 1000
-}, {
-    'nvim-telescope/telescope.nvim',
-    tag = '0.1.6',
-    dependencies = {'nvim-lua/plenary.nvim'}
-}, {"zbirenbaum/copilot.lua"}, {"zbirenbaum/copilot-cmp"}, {"hrsh7th/nvim-cmp"}, {"hrsh7th/cmp-nvim-lsp"}}
+local plugins = {
+    {
+      "catppuccin/nvim",
+      name = "catppuccin",
+      priority = 1000
+    }, 
+    {
+      'nvim-telescope/telescope.nvim',
+       --tag = '0.1.6',
+       dependencies = {'nvim-lua/plenary.nvim'}
+    }, 
+    {
+        "zbirenbaum/copilot.lua"
+    }, 
+    {
+        "zbirenbaum/copilot-cmp"
+    }, 
+    {
+        "hrsh7th/nvim-cmp"
+    }, 
+    {
+        "hrsh7th/cmp-nvim-lsp"
+    }
+}
 
 -- setup lazy loading
 require("lazy").setup(plugins, opts)
 
 -- setup telescope
-local builtin = require('telescope.builtin')
 local telescope = require('telescope')
 
 telescope.setup {
@@ -40,9 +54,9 @@ telescope.setup {
     }
 }
 
+local builtin = require('telescope.builtin')
 vim.keymap.set('n', "<C-p>", builtin.find_files, {})
 vim.keymap.set("n", "<leader>fb", builtin.find_files, {})
-
 vim.keymap.set('n', "<leader>fg", builtin.live_grep, {})
 
 -- setup catppuccin
@@ -107,3 +121,12 @@ cmp.setup({
         name = "copilot"
     }}
 })
+
+-- Shortcut for searching your neovim configuration files
+vim.keymap.set("n", "<leader>sn", function()
+	builtin.find_files({ cwd = vim.fn.stdpath("config") })
+end, { desc = "[S]earch [N]eovim files" })
+
+vim.keymap.set("n", "<leader><leader>x", "<cmd>:source %<CR>")
+vim.keymap.set("n", "<leader>x", ":.lua<CR>")
+vim.keymap.set("v", "<leader>x", ":lua<CR>")
