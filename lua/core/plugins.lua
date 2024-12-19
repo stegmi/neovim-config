@@ -26,10 +26,6 @@ require("lazy").setup({
   "williamboman/mason-lspconfig.nvim",
   "neovim/nvim-lspconfig",
   {
-    "vinnymeller/swagger-preview.nvim",
-    run = "npm install -g swagger-ui-watcher",
-  },
-  {
     "iamcco/markdown-preview.nvim",
     run = "cd app && npm install",
   },
